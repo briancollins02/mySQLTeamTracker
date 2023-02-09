@@ -48,9 +48,18 @@ function init()  {
             case 'Add employee':
                 addEmp();
             break;
+            case 'Add departments':
+                addDept();
+            break;
+            case 'Add roles':
+                addRole();
+            break;
+            case 'Update employee role':
+                updateRole();
+            break;
             default:
-                console.log('no way bro');
-                connection.end;
+                console.log('Disconnected!');
+                connection.end();
                 return;
         }
     });
@@ -127,6 +136,55 @@ function addEmp() {
         )
     }
 )};
+
+function addDept() {
+    inquirer.prompt({
+        type: 'input',
+        message: 'Department name',
+        name: 'department'
+    })
+    .then(function(answer) {
+        console.log(answer.department);
+        connection.query("INSERT INTO department SET ?",
+        {name: answer.department},
+        function(err) {
+            err ? console.log(err) : init();
+        })
+    })
+};
+
+function addRole() {
+    let input = [
+        {
+            type: 'input',
+            message: 'Role title',
+            name: 'title'
+        },
+        {
+            type: 'input',
+            message: 'department ID',
+            name: 'department_id'
+        },
+        {
+            type: 'input',
+            message: 'what is the salary for this role?',
+            name: 'salary'
+        }
+    ];
+    inquirer.prompt(input).then(function(answer) {
+        connection.query(
+            'INSERT INTO role SET ?',
+            {
+                title: answer.title,
+                department_id: answer.department_id,
+                salary: answer.salary
+            },
+            function(err) {
+                err ? console.log(err) : init();
+            }
+        )
+    });
+};
 
 // function updateManager (empID, roleID){
 //     connection.query("UPDATE employee SET role_id = ? WHERE employee_id = ?", [roleID, empID])
