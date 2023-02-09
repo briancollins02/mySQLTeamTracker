@@ -9,7 +9,7 @@ const connection  = mysql.createConnection(
         host: 'localhost',
         port: 3306,
         user: 'root',
-        password: '',
+        password: 'BrCo92sri24%',
         connectTimeout: 60000,
         database: 'team_db',
     },
@@ -186,8 +186,29 @@ function addRole() {
     });
 };
 
-// function updateManager (empID, roleID){
-//     connection.query("UPDATE employee SET role_id = ? WHERE employee_id = ?", [roleID, empID])
-// };
+function updateRole() {
+    let input = [
+        {
+            type: 'input',
+            name: 'id',
+            message: 'Enter the ID of the employee you wish to edit'
+        },
+        {
+            type: 'input',
+            name: 'role_id',
+            message: 'Enther the ID of the role you wish to assign'
+        }
+    ]
+   inquirer.prompt(input).then(function(answer) {
+    console.log(answer);
+    connection.query(
+        "UPDATE employee SET role_id = ? WHERE id = ?",
+        [answer.role_id, answer.id],
+        function(err) {
+            err ? console.log(err) : init()
+        })
+   })
+};
+ 
 
 init();
