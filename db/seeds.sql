@@ -10,3 +10,4 @@ VALUES ('Marketing'), ('Design'), ('Finance'), ('R&D');
 
 INSERT INTO role (title, salary, department_id)
 VALUES ('Marketing Lead', 100000, 1), ('Market Research', 80000, 1), ('Producer', 150000, 2), ('Illustrator', 120000, 2), ('Accountant', 125000, 3), ('Product Research Lead', 250000, 4), ('Data Analyst', 190000, 4);
+1
